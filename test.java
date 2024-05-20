@@ -25,7 +25,7 @@ public class test
     {
         int nbJoueurs=3, i;
         String tempNom;
-        LinkedList<Chevalet> ListeJoueurs = new LinkedList();
+        LinkedList<Chevalet> ListeJoueurs = new LinkedList<Chevalet>();
 
     
         

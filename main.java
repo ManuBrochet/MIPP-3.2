@@ -4,7 +4,7 @@ public class main
     {
         int nbJoueurs, i;
         String tempNom;
-        LinkedList<Chevalet> ListeJoueurs = new LinkedList();
+        LinkedList<Chevalet> ListeJoueurs = new LinkedList<Chevalet>();
         java.util.Scanner entree =   new java.util.Scanner(System.in);
         System.out.println("Combien de joueurs voulez-vous dans la partie ?");
         nbJoueurs = entree.nextInt();

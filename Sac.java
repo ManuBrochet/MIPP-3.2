@@ -7,7 +7,7 @@ public class Sac
 
     public void Sac()
     {
-        LinkedList<Lettre> lettres_restantes_temp = new LinkedList();
+        LinkedList<Lettre> lettres_restantes_temp = new LinkedList<Lettre>();
         int i;
         for (i=0; i<9; i++)
         {
@@ -122,12 +122,14 @@ public class Sac
         this.nb_lettres_restantes = 102;
     }
     
-    public void toString()
+    public String toString()
     {
         int i;
+        String out = "Les lettres du sac sont : ";
         for (i=0; i<this.nb_lettres_restantes; i++)
         {
-            System.out.print(this.lettres_restantes.get(i).symbole);
+            out = out + " " + this.lettres_restantes.get(i).toString();
         }
+        return out;
     }
 }
