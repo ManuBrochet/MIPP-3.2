@@ -125,11 +125,11 @@ public class Sac
     public String toString()
     {
         int i;
-        String res = "";
+        String out = "Les lettres du sac sont : ";
         for (i=0; i<this.nb_lettres_restantes; i++)
         {
-            res = res + this.lettres_restantes.get(i).symbole + " ";
+            out = out + " " + this.lettres_restantes.get(i).toString();
         }
-        return res;
+        return out;
     }
 }

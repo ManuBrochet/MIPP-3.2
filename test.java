@@ -23,12 +23,10 @@ public class test
 
     public static void main(String[] args)
     {
-//        int nbJoueurs=3, i;
-//        String tempNom;
+        int nbJoueurs=3, i;
+        String tempNom;
         LinkedList<Chevalet> ListeJoueurs = new LinkedList<Chevalet>();
 
-    
-        
         ListeJoueurs.add(new Chevalet("Manu"));
         ListeJoueurs.add(new Chevalet("Ustine"));
         ListeJoueurs.add(new Chevalet("Annie"));
@@ -39,7 +37,7 @@ public class test
         Sac leSac = new Sac();
         System.out.println(leSac.toString());
 
-        ListeJoueurs.get(0).piocherLettre(leSac, 7);
+        ListeJoueurs.get(0).piocherLettre(leSac);
         ListeJoueurs.get(0).afficher_chevalet();
 
     }
