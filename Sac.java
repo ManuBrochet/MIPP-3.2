@@ -7,117 +7,127 @@ public class Sac
 
     public void Sac()
     {
+        LinkedList<Lettre> lettres_restantes_temp = new LinkedList();
         int i;
         for (i=0; i<9; i++)
         {
-            lettres_restantes.add(new Lettre('a', 1));
+            lettres_restantes_temp.add(new Lettre('a', 1));
         }
         for (i=0; i<2; i++)
         {
-            lettres_restantes.add(new Lettre('b', 3));
+            lettres_restantes_temp.add(new Lettre('b', 3));
         }
         for (i=0; i<2; i++)
         {
-            lettres_restantes.add(new Lettre('c', 3));
+            lettres_restantes_temp.add(new Lettre('c', 3));
         }
         for (i=0; i<3; i++)
         {
-            lettres_restantes.add(new Lettre('d', 2));
+            lettres_restantes_temp.add(new Lettre('d', 2));
         }
         for (i=0; i<15; i++)
         {
-            lettres_restantes.add(new Lettre('e', 1));
+            lettres_restantes_temp.add(new Lettre('e', 1));
         }
         for (i=0; i<2; i++)
         {
-            lettres_restantes.add(new Lettre('f', 4));  
+            lettres_restantes_temp.add(new Lettre('f', 4));  
         }
         for (i=0; i<2; i++)
         {
-            lettres_restantes.add(new Lettre('g', 2));  
+            lettres_restantes_temp.add(new Lettre('g', 2));  
         }
         for (i=0; i<2; i++)
         {
-            lettres_restantes.add(new Lettre('h', 4));  
+            lettres_restantes_temp.add(new Lettre('h', 4));  
         }
         for (i=0; i<8; i++)
         {
-            lettres_restantes.add(new Lettre('i', 1));  
+            lettres_restantes_temp.add(new Lettre('i', 1));  
         }
         for (i=0; i<1; i++)
         {
-            lettres_restantes.add(new Lettre('j', 8));  
+            lettres_restantes_temp.add(new Lettre('j', 8));  
         }
         for (i=0; i<1; i++)
         {
-            lettres_restantes.add(new Lettre('k', 10));  
+            lettres_restantes_temp.add(new Lettre('k', 10));  
         }
         for (i=0; i<5; i++)
         {
-            lettres_restantes.add(new Lettre('l', 1));  
+            lettres_restantes_temp.add(new Lettre('l', 1));  
         }
         for (i=0; i<3; i++)
         {
-            lettres_restantes.add(new Lettre('m', 2));  
+            lettres_restantes_temp.add(new Lettre('m', 2));  
         }
         for (i=0; i<6; i++)
         {
-            lettres_restantes.add(new Lettre('n', 1));  
+            lettres_restantes_temp.add(new Lettre('n', 1));  
         }
         for (i=0; i<6; i++)
         {
-            lettres_restantes.add(new Lettre('o', 1));  
+            lettres_restantes_temp.add(new Lettre('o', 1));  
         }
         for (i=0; i<2; i++)
         {
-            lettres_restantes.add(new Lettre('p', 3));  
+            lettres_restantes_temp.add(new Lettre('p', 3));  
         }
         for (i=0; i<1; i++)
         {
-            lettres_restantes.add(new Lettre('q', 8));  
+            lettres_restantes_temp.add(new Lettre('q', 8));  
         }
         for (i=0; i<6; i++)
         {
-            lettres_restantes.add(new Lettre('r', 1));  
+            lettres_restantes_temp.add(new Lettre('r', 1));  
         }
         for (i=0; i<6; i++)
         {
-            lettres_restantes.add(new Lettre('s', 1));  
+            lettres_restantes_temp.add(new Lettre('s', 1));  
         }
         for (i=0; i<6; i++)
         {
-            lettres_restantes.add(new Lettre('t', 1));  
+            lettres_restantes_temp.add(new Lettre('t', 1));  
         }
         for (i=0; i<6; i++)
         {
-            lettres_restantes.add(new Lettre('u', 1));  
+            lettres_restantes_temp.add(new Lettre('u', 1));  
         }
         for (i=0; i<2; i++)
         {
-            lettres_restantes.add(new Lettre('v', 4));  
+            lettres_restantes_temp.add(new Lettre('v', 4));  
         }
         for (i=0; i<1; i++)
         {
-            lettres_restantes.add(new Lettre('w', 10));  
+            lettres_restantes_temp.add(new Lettre('w', 10));  
         }
         for (i=0; i<1; i++)
         {
-            lettres_restantes.add(new Lettre('x', 10));  
+            lettres_restantes_temp.add(new Lettre('x', 10));  
         }
         for (i=0; i<1; i++)
         {
-            lettres_restantes.add(new Lettre('y', 10));  
+            lettres_restantes_temp.add(new Lettre('y', 10));  
         }
         for (i=0; i<1; i++)
         {
-            lettres_restantes.add(new Lettre('z', 10));  
+            lettres_restantes_temp.add(new Lettre('z', 10));  
         }
         for (i=0; i<2; i++)
         {
-            lettres_restantes.add(new Lettre(' ', 0));  
+            lettres_restantes_temp.add(new Lettre(' ', 0));  
         }
 
+        this.lettres_restantes = lettres_restantes_temp;
         this.nb_lettres_restantes = 102;
     }
     
+    public void toString()
+    {
+        int i;
+        for (i=0; i<this.nb_lettres_restantes; i++)
+        {
+            System.out.print(this.lettres_restantes.get(i).symbole);
+        }
+    }
 }

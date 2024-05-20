@@ -15,4 +15,8 @@ public class Lettre
         this.valeur = valeur;
     }
 
+    public String toString()
+    {
+        return "C'est la lettre " + this.symbole + " de valeur " + this.valeur;
+    }
 }
