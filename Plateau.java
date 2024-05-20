@@ -2,6 +2,8 @@ public class Plateau
 {
     public Lettre[][] lePlateau = new Lettre[15][15];
 
+    // constructeur, en initialisant le tableau avec des cases vides représentées par des _
+
     public Plateau()
     {
         int i;

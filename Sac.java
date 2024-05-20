@@ -5,6 +5,7 @@ public class Sac
     public LinkedList<Lettre> lettres_restantes;
     public int nb_lettres_restantes;
 
+    // contructeur, on remplit le sac avec toutes les lettres 
     public Sac()
     {
         LinkedList<Lettre> lettres_restantes_temp = new LinkedList<Lettre>();
@@ -115,21 +116,22 @@ public class Sac
         }
         for (i=0; i<2; i++)
         {
-            lettres_restantes_temp.add(new Lettre(' ', 0));  
+            lettres_restantes_temp.add(new Lettre('$', 0));  
         }
 
         this.lettres_restantes = lettres_restantes_temp;
         this.nb_lettres_restantes = 102;
     }
     
+    // affiche les lettres présentes dans le sac
     public String toString()
     {
         int i;
-        String out = "Les lettres du sac sont : ";
+        String str = "Les lettres du sac sont : ";
         for (i=0; i<this.nb_lettres_restantes; i++)
         {
-            out = out + " " + this.lettres_restantes.get(i).toString();
+            str = str + " " + this.lettres_restantes.get(i).toString() + "\n";
         }
-        return out;
+        return str;
     }
 }

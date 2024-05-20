@@ -8,19 +8,21 @@ public class Chevalet
     public String nom;
     public int score;
 
+    // Constructeur
     public Chevalet(String nom)
     {
         int i;
 
         for (i=0; i<7;i++)
         {
-            this.mesLettres[i] = new Lettre('%', 0);
+            this.mesLettres[i] = new Lettre('_', 0);
         }
 
         this.nom = nom;
         this.score = 0;
     }
 
+    // Remplit le chevalet si il manque des lettres, et tant qu'il y en a dans le sac
     public boolean piocherLettre(Sac leSac)
     {
 
@@ -28,7 +30,7 @@ public class Chevalet
 
         for (i=0; i<7; i++)
         {
-            if ((this.mesLettres[i].symbole == '%') && (leSac.nb_lettres_restantes > 0))
+            if ((this.mesLettres[i].symbole == '_') && (leSac.nb_lettres_restantes > 0))
             {
                 ind = (int)(Math.random() * (leSac.nb_lettres_restantes-1));
                 this.mesLettres[i] = leSac.lettres_restantes.get(ind);
@@ -40,6 +42,7 @@ public class Chevalet
         else {return false;}
     }
 
+    // Compte les points des lettres sur le chevalet
     public int CompterPoint()
     {
         int sum=0, i;
@@ -52,7 +55,7 @@ public class Chevalet
     }
 
 
-    //Cette fonction vérifie que le mot ne se place pas sur une lettre déjà placée sur le plateau, et que le mot est bien connecté à au moins une autre lettre
+    // vérifie que le mot ne se place pas sur une lettre déjà placée sur le plateau, et que le mot est bien connecté à au moins une autre lettre
     public boolean VerifNeChevauchepasEtConnecte(LinkedList<Lettre> leMot, int dx, int dy, int x, int y, Plateau lePlateau)
     {
         boolean res = true, connecte = false;
@@ -65,11 +68,11 @@ public class Chevalet
         {
             for (i=0; i<leMot.size(); i++)
             {
-                if (lePlateau.lePlateau[x+i*dx][y+i*dy].symbole != '%')
+                if (lePlateau.lePlateau[x+i*dx][y+i*dy].symbole != '_')
                 {
                     res = false;
                 }
-                if ((lePlateau.lePlateau[x+i*dx+1][y+i*dy].symbole != '%') && (lePlateau.lePlateau[x+i*dx-1][y+i*dy].symbole != '%') && (lePlateau.lePlateau[x+i*dx][y+i*dy+1].symbole != '%') && (lePlateau.lePlateau[x+i*dx][y+i*dy-1].symbole != '%'))
+                if ((lePlateau.lePlateau[x+i*dx+1][y+i*dy].symbole != '_') && (lePlateau.lePlateau[x+i*dx-1][y+i*dy].symbole != '_') && (lePlateau.lePlateau[x+i*dx][y+i*dy+1].symbole != '_') && (lePlateau.lePlateau[x+i*dx][y+i*dy-1].symbole != '_'))
                 {
                     connecte = true;
                 }
@@ -78,30 +81,31 @@ public class Chevalet
         return (res && connecte);
     }
 
+    //Compte les points du mot qui vient d'ếtre posé
     public int CompterPointCoup(LinkedList<Lettre> leMot, int dx, int dy, int x, int y, Plateau lePlateau)
     {
         int score=0, j=1, i;
         for (i=0; i<leMot.size(); i++)
         {
-            while((lePlateau.lePlateau[x+i*dx+j][y+i*dy].symbole != '%') && (x+i*dx+j<14))
+            while((lePlateau.lePlateau[x+i*dx+j][y+i*dy].symbole != '_') && (x+i*dx+j<14))
             {
                 score += lePlateau.lePlateau[x+i*dx+j][y+i*dy].valeur;
                 j++;
             }
             j=1;
-            while((lePlateau.lePlateau[x+i*dx-j][y+i*dy].symbole != '%') && (x+i*dx-j>0))
+            while((lePlateau.lePlateau[x+i*dx-j][y+i*dy].symbole != '_') && (x+i*dx-j>0))
             {
                 score += lePlateau.lePlateau[x+i*dx-j][y+i*dy].valeur;
                 j++;
             }
             j=1;
-            while((lePlateau.lePlateau[x+i*dx][y+i*dy+j].symbole != '%') && (y+i*dy+j<14))
+            while((lePlateau.lePlateau[x+i*dx][y+i*dy+j].symbole != '_') && (y+i*dy+j<14))
             {
                 score += lePlateau.lePlateau[x+i*dx][y+i*dy+j].valeur;
                 j++;
             }
             j=1;
-            while((lePlateau.lePlateau[x+i*dx][y+i*dy-j].symbole != '%') && (y+i*dy-j>0))
+            while((lePlateau.lePlateau[x+i*dx][y+i*dy-j].symbole != '_') && (y+i*dy-j>0))
             {
                 score += lePlateau.lePlateau[x+i*dx][y+i*dy-j].valeur;
                 j++;
@@ -110,7 +114,7 @@ public class Chevalet
         return score;
     }
 
-    //vérifie que le mot placé est bien valide
+    //vérifie que le mot placé est bien valide et ajoute les points au total
     public boolean VerifMotPlace(LinkedList<Lettre> leMot, char direction, int x, int y, Plateau lePlateau)
     {
         boolean res;
@@ -137,6 +141,7 @@ public class Chevalet
             dy = 1;
         }
         res = VerifNeChevauchepasEtConnecte(leMot, dx, dy, x, y, lePlateau);
+        //faudra ajouter pour vérifier que les mots sont valides
         if (res)
         {
             this.score += CompterPointCoup(leMot, dx, dy, x, y, lePlateau);
@@ -196,6 +201,7 @@ public class Chevalet
         
     }
 
+    // verifie que la lettre est présente dans le chevalet
     public boolean LettrePresente(char laLettre)
     {
         int i;
@@ -211,6 +217,7 @@ public class Chevalet
         return res;
     }
 
+    // Demande les info au joueur pour jouer un coup
     public ChoixJouer JouerUnCoup()
     {
         System.out.println(this.toString());
@@ -241,6 +248,7 @@ public class Chevalet
         return leChoix;
     }
 
+    // change les lettres données du chevalet
     public void ChangerLettres(String LettresAChanger, Sac leSac) throws LettreNonPresente
     {
         int i,j;
@@ -258,7 +266,7 @@ public class Chevalet
                 {
                     if (this.mesLettres[j].symbole == LettresAChanger.charAt(i))
                     {
-                        this.mesLettres[j].symbole = '%';
+                        this.mesLettres[j].symbole = '_';
                         this.mesLettres[j].valeur = 0;
                         break;
                     }
@@ -268,15 +276,16 @@ public class Chevalet
         resteLettres = piocherLettre(leSac);
     }
 
+    // réécriture de la méthode toString pour afficher les lettres et leurs valeures
     public String toString()
     {
         int i;
-        String out = "Les lettres du chevalet sont : ";
+        String str = "Les lettres du chevalet sont : \n";
         for (i=0; i<7; i++)
         {
-            out = out + " " + this.mesLettres[i].toString();
+            str = str + " " + this.mesLettres[i].toString() + "\n";
         }
-        return out;
+        return str;
     }
 
     public void afficher_chevalet()

@@ -27,18 +27,18 @@ public class test
         String tempNom;
         LinkedList<Chevalet> ListeJoueurs = new LinkedList<Chevalet>();
 
+    
+        
         ListeJoueurs.add(new Chevalet("Manu"));
         ListeJoueurs.add(new Chevalet("Ustine"));
         ListeJoueurs.add(new Chevalet("Annie"));
-
         Plateau lePlateau = new Plateau();
-        lePlateau.afficher_plateau();
-
         Sac leSac = new Sac();
+        System.out.println(leSac.nb_lettres_restantes);
         System.out.println(leSac.toString());
 
         ListeJoueurs.get(0).piocherLettre(leSac);
-        ListeJoueurs.get(0).afficher_chevalet();
 
+        System.out.println(ListeJoueurs.get(0).toString());
     }
 }

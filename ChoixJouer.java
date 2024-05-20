@@ -6,12 +6,13 @@ public class ChoixJouer
     int y;
     char direction;
 
+    // constructeur vide
     public ChoixJouer()
     {
         this.choix = 0;
         this.mot = "";
         this.x = 0;
         this.y = 0;
-        this.direction = '%';
+        this.direction = '_';
     }
 }
