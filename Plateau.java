@@ -15,4 +15,18 @@ public class Plateau
         }
     }
 
+    public void afficher_plateau()
+    {
+        int i;
+        int j;
+        for (i=0; i<15; i++)
+        {
+            for (j=0; j<15; j++)
+            {
+                System.out.print(this.lePlateau[i][j].symbole + " ");
+            }
+            System.out.println();
+        }    
+    }
+
 }

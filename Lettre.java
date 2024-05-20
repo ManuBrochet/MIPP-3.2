@@ -5,7 +5,7 @@ public class Lettre
 
     public Lettre()
     {
-        this.symbole = '%';
+        this.symbole = '_';
         this.valeur = 0;
     } 
 

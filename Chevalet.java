@@ -214,4 +214,19 @@ public class Chevalet
             }
         }
     }
+
+    public void afficher_chevalet()
+    {
+        System.out.println("Joueur : "+ this.nom);
+        for (int i=0; i<7; i++)
+        {
+            System.out.print(this.mesLettres[i].symbole + " ");
+        }
+        System.out.println();
+        for (int i=0; i<7; i++)
+        {
+            System.out.print(this.mesLettres[i].valeur + " ");
+        }
+        System.out.println();
+    }
 }
