@@ -23,7 +23,7 @@ public class test
 
     public static void main(String[] args)
     {
-        int nbJoueurs=3, i;
+        int nbJoueurs=4, i;
         String tempNom;
         LinkedList<Chevalet> ListeJoueurs = new LinkedList<Chevalet>();
 
@@ -32,13 +32,20 @@ public class test
         ListeJoueurs.add(new Chevalet("Manu"));
         ListeJoueurs.add(new Chevalet("Ustine"));
         ListeJoueurs.add(new Chevalet("Annie"));
+        ListeJoueurs.add(new Chevalet("Didine"));
         Plateau lePlateau = new Plateau();
         Sac leSac = new Sac();
-        System.out.println(leSac.nb_lettres_restantes);
-        System.out.println(leSac.toString());
+        //System.out.println(leSac.nb_lettres_restantes);
+        //System.out.println(leSac.toString());
+
+        lePlateau.afficher_plateau();
 
         ListeJoueurs.get(0).piocherLettre(leSac);
 
         System.out.println(ListeJoueurs.get(0).toString());
+
+        //System.out.println(leSac.toString());
+
+        System.out.println(ListeJoueurs.get(0).CompterPoint());
     }
 }

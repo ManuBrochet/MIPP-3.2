@@ -21,6 +21,7 @@ public class Chevalet
         this.nom = nom;
         this.score = 0;
     }
+    //fonctionne
 
     // Remplit le chevalet si il manque des lettres, et tant qu'il y en a dans le sac
     public boolean piocherLettre(Sac leSac)
@@ -41,6 +42,7 @@ public class Chevalet
         if (leSac.nb_lettres_restantes > 0) {return true;}
         else {return false;}
     }
+    //fonctionne
 
     // Compte les points des lettres sur le chevalet
     public int CompterPoint()
@@ -53,6 +55,7 @@ public class Chevalet
         }
         return sum;
     }
+    //fonctionne
 
 
     // vérifie que le mot ne se place pas sur une lettre déjà placée sur le plateau, et que le mot est bien connecté à au moins une autre lettre
