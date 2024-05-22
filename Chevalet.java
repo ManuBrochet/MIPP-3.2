@@ -296,8 +296,7 @@ public class Chevalet
         System.out.println("Joueur : "+ this.nom);
         for (int i=0; i<7; i++)
         {
-            System.out.print(thigit config --global user.email "you@example.com"
-  git config --global user.name "Your Name"s.mesLettres[i].symbole + " ");
+            System.out.print(this.mesLettres[i].symbole + " ");
         }
         System.out.println();
         for (int i=0; i<7; i++)

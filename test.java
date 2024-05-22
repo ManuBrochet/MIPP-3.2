@@ -38,7 +38,7 @@ public class test
         //System.out.println(leSac.nb_lettres_restantes);
         //System.out.println(leSac.toString());
 
-        //lePlateau.afficher_plateau();
+        lePlateau.afficher_plateau();
 
         ListeJoueurs.get(0).piocherLettre(leSac);
 

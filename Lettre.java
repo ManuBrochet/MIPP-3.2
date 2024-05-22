@@ -6,7 +6,7 @@ public class Lettre
     // constructeur vide
     public Lettre()
     {
-        this.symbole = '_';
+        this.symbole = '.';
         this.valeur = 0;
     } 
 
