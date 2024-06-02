@@ -1,6 +1,7 @@
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.LinkedList;
 
 public class Chevalet
 {
@@ -57,7 +58,7 @@ public class Chevalet
     }
     //fonctionne
 
-
+    /*
     // vérifie que le mot ne se place pas sur une lettre déjà placée sur le plateau, et que le mot est bien connecté à au moins une autre lettre
     public boolean VerifNeChevauchepasEtConnecte(LinkedList<Lettre> leMot, int dx, int dy, int x, int y, Plateau lePlateau)
     {
@@ -82,8 +83,10 @@ public class Chevalet
             }
         }
         return (res && connecte);
-    }
+    }*/
 
+
+    /*
     //Compte les points du mot qui vient d'ếtre posé
     public int CompterPointCoup(LinkedList<Lettre> leMot, int dx, int dy, int x, int y, Plateau lePlateau)
     {
@@ -115,8 +118,9 @@ public class Chevalet
             }
         }
         return score;
-    }
+    }*/
 
+    /*
     //vérifie que le mot placé est bien valide et ajoute les points au total
     public boolean VerifMotPlace(LinkedList<Lettre> leMot, char direction, int x, int y, Plateau lePlateau)
     {
@@ -150,9 +154,9 @@ public class Chevalet
             this.score += CompterPointCoup(leMot, dx, dy, x, y, lePlateau);
         }
         return res;
-    }
+    }*/
 
-
+    /*
     //place le mot sur le tableau en appelant les fonctions pour vérifier que le mot est correcte et compte les points.
     public int PlacerMot(LinkedList<Lettre> leMot, char direction, int x, int y, Plateau lePlateau) throws MotIncorrect
     {
@@ -202,10 +206,10 @@ public class Chevalet
             return leMot.size();
         }
         
-    }
+    } */
 
-    // verifie que la lettre est présente dans le chevalet
-    public boolean LettrePresente(char laLettre)
+    // verifie que la lettre est présente dans le chevalet et l'ajoute à la liste chainée de Lettre pour la manimuler ensuite
+    public boolean LettrePresente(char laLettre, LinkedList<Lettre> lesLettres)
     {
         int i;
         boolean res = false;
@@ -215,11 +219,47 @@ public class Chevalet
             if (this.mesLettres[i].symbole == laLettre)
             {
                 res = true;
+                lesLettres.add(this.mesLettres[i]);
+                this.mesLettres[i].symbole = '_';
+                break;
             }
         }
         return res;
     }
 
+
+
+
+    // change les lettres données du chevalet
+    public void ChangerLettres(String LettresAChanger, Sac leSac) throws LettreNonPresente
+    {
+        int i,j;
+        boolean resteLettres;
+
+        for (i=0; i<LettresAChanger.length(); i++)
+        {
+            if (!LettrePresente(LettresAChanger.charAt(i), new LinkedList<Lettre>()))
+            {
+                throw new LettreNonPresente("La lettre" + LettresAChanger.charAt(i) + " n'est pas dans votre chevalet.");
+            }
+            else
+            {
+                for (j=0; j<7; j++)
+                {
+                    if (this.mesLettres[j].symbole == LettresAChanger.charAt(i))
+                    {
+                        this.mesLettres[j].symbole = '_';
+                        this.mesLettres[j].valeur = 0;
+                        break;
+                    }
+                }
+            }
+        }
+        resteLettres = piocherLettre(leSac);
+    }
+
+
+    /*
     // Demande les info au joueur pour jouer un coup
     public ChoixJouer JouerUnCoup()
     {
@@ -249,35 +289,328 @@ public class Chevalet
             leChoix.mot = entree.nextLine();
         }
         return leChoix;
-    }
+    }*/
 
-    // change les lettres données du chevalet
-    public void ChangerLettres(String LettresAChanger, Sac leSac) throws LettreNonPresente
+
+    
+    
+    // Demande les info au joueur pour jouer un coup
+    public ChoixJouer ChoixCoup()
     {
-        int i,j;
-        boolean resteLettres;
-
-        for (i=0; i<LettresAChanger.length(); i++)
+        ChoixJouer leChoix = new ChoixJouer();
+        char direction = 'm';
+        Scanner entree = new Scanner(System.in);
+        System.out.println("Voulez-vous jouer un mot (1) \n Changer des lettres (2) \n Passer votre tour (3) ");
+        leChoix.choix = entree.nextInt();
+        if (leChoix.choix == 1)
         {
-            if (!LettrePresente(LettresAChanger.charAt(i)))
+            System.out.println("Donner le mot que vous voulez placer");
+            entree.nextLine();
+            leChoix.mot = entree.nextLine();
+            System.out.println("Donner la coordonnées x");
+            leChoix.x = entree.nextInt();
+            System.out.println("Donner la coordonnées y");
+            leChoix.y = entree.nextInt();
+            entree.nextLine();
+            while((direction!='N') && (direction!='S') && (direction!='E') && (direction!='W'))
             {
-                throw new LettreNonPresente("La lettre" + LettresAChanger.charAt(i) + " n'est pas dans votre chevalet.");
+                System.out.println("Donner la direction : N, S, E, W");
+                String str = entree.nextLine();
+                direction = str.charAt(0);
             }
-            else
+            if (direction == 'N')
             {
-                for (j=0; j<7; j++)
+                leChoix.dx = 0;
+                leChoix.dy = -1;
+            }
+            if (direction == 'S')
+            {
+                leChoix.dx = 0;
+                leChoix.dy = 1;
+            }
+            if (direction == 'W')
+            {
+                leChoix.dx = -1;
+                leChoix.dy = 0;
+            }
+            if (direction == 'E')
+            {
+                leChoix.dx = 1;
+                leChoix.dy = 0;
+            }
+        }
+        else if (leChoix.choix == 2)
+        {
+            System.out.println("Donner les letres que vous voulez changer (sans espaces)");
+            leChoix.mot = entree.nextLine();
+        }
+        return leChoix;
+    }
+    //fonctionne
+
+
+    public Plateau JouerPremierCoup(Plateau lePlateau, Sac leSac)
+    {
+        ChoixJouer leChoix = new ChoixJouer();
+        boolean lettreDansChevalet, bienPlace, coupValide = false;
+        int i;
+        LinkedList<Lettre> leMotEnLettre = new LinkedList<Lettre>();
+        
+        
+        while (!(coupValide))
+        {
+            leMotEnLettre.clear();
+            this.afficher_chevalet();
+            leChoix = this.ChoixCoup();
+            if (leChoix.choix == 1)
+            {
+                lettreDansChevalet = true;
+                bienPlace = true;
+
+                for (i=0; i < leChoix.mot.length(); i++ )
                 {
-                    if (this.mesLettres[j].symbole == LettresAChanger.charAt(i))
+                    if (!LettrePresente(leChoix.mot.charAt(i), leMotEnLettre))
                     {
-                        this.mesLettres[j].symbole = '_';
-                        this.mesLettres[j].valeur = 0;
+                        lettreDansChevalet = false;
+                        System.out.print("Une de ces lettres n'est pas présente dans votre chevalet. \n ");
                         break;
+                    }
+                    System.out.println("La dernière lettre " +  leMotEnLettre.getLast().symbole + "\n\n");
+                }
+                if (!PremierCoupValide(leMotEnLettre, leChoix.dx, leChoix.dy, leChoix.x, leChoix.y, lePlateau))
+                {
+                    System.out.println("Votre mot ne peut pas être posé ici, veuillez en entrer un nouveau. \n ");
+                    bienPlace = false;
+                }
+
+                coupValide = ((bienPlace) && (lettreDansChevalet));
+
+                if (coupValide)
+                {
+                    Serarien res = this.VerifMotPlace(leMotEnLettre, leChoix.dx, leChoix.dy, leChoix.x, leChoix.y, lePlateau);
+                    leMotEnLettre = res.nouveauMot;
+                    for (i=0; i< leMotEnLettre.size(); i++)
+                    {
+                        System.out.println("La lettre " + i + " est : " + leMotEnLettre.get(i).symbole + " et sa valeur est " + leMotEnLettre.get(i).valeur +"\n");
+                    }
+                    String bonus = res.bonus;
+                    System.out.println("Les bonus " + bonus + "\n");
+                    System.out.println("Le score " + this.score + "\n");
+                    this.score += this.CompterPointCoup(leMotEnLettre, leChoix.dx, leChoix.dy, leChoix.x, leChoix.y, lePlateau, bonus);
+                    lePlateau = this.PlacerMot(leMotEnLettre, leChoix.dx, leChoix.dy, leChoix.x, leChoix.y, lePlateau);
+                    try 
+                    {
+                        ChangerLettres(leChoix.mot, leSac);
+                    } 
+                    catch (LettreNonPresente e) 
+                    {
+                        System.out.println("La lettre n'est pas présente dans le chevalet \n");
                     }
                 }
             }
-        }
-        resteLettres = piocherLettre(leSac);
+            if (leChoix.choix == 2)
+            {
+
+                try 
+                {
+                    ChangerLettres(leChoix.mot, leSac);
+                } 
+                catch (LettreNonPresente e) 
+                {
+                    System.out.println(e);
+                    coupValide=false;
+                }
+            }
+        }    
+        return lePlateau;
     }
+
+
+    public boolean PremierCoupValide(LinkedList<Lettre> leMot, int dx, int dy, int x, int y, Plateau lePlateau)
+    {
+        boolean res = false;
+        if (( (x == 8) && (dy == 1) && (y+leMot.size() >= 8) && (y<=8) ) || (((y == 8) && (dx == 1)) && (x+leMot.size() >= 8)  &&  (x<=8)))
+        {
+            res = true;
+        }
+        return res;
+    }
+    
+    
+    //!this.VerifMotPlace(leMotEnLettre, leChoix.dx, leChoix.dy, leChoix.x, leChoix.y, lePlateau).valide
+
+    public Plateau JouerUnCoup(Plateau lePlateau, Sac leSac)
+    {
+        ChoixJouer leChoix = new ChoixJouer();
+        boolean lettreDansChevalet, bienPlace, coupValide = false;
+        int i;
+        LinkedList<Lettre> leMotEnLettre = new LinkedList<Lettre>();
+        
+        
+        while (!(coupValide))
+        {
+            leMotEnLettre.clear();
+            this.afficher_chevalet();
+            leChoix = this.ChoixCoup();
+            if (leChoix.choix == 1)
+            {
+                lettreDansChevalet = true;
+                bienPlace = true;
+
+                for (i=0; i < leChoix.mot.length(); i++ )
+                {
+                    if (!LettrePresente(leChoix.mot.charAt(i), leMotEnLettre))
+                    {
+                        lettreDansChevalet = false;
+                        System.out.print("Une de ces lettres n'est pas présente dans votre chevalet. \n ");
+                        break;
+                    }
+                    System.out.println("La dernière lettre " +  leMotEnLettre.getLast().symbole + "\n\n");
+                }
+                if (!this.VerifMotPlace(leMotEnLettre, leChoix.dx, leChoix.dy, leChoix.x, leChoix.y, lePlateau).valide)
+
+                {
+                    System.out.println("Votre mot ne peut pas être posé ici, veuillez en entrer un nouveau. \n ");
+                    bienPlace = false;
+                }
+
+                coupValide = ((bienPlace) && (lettreDansChevalet));
+
+                if (coupValide)
+                {
+                    Serarien res = this.VerifMotPlace(leMotEnLettre, leChoix.dx, leChoix.dy, leChoix.x, leChoix.y, lePlateau);
+                    leMotEnLettre = res.nouveauMot;
+                    for (i=0; i< leMotEnLettre.size(); i++)
+                    {
+                        System.out.println("La lettre " + i + " est : " + leMotEnLettre.get(i).symbole + " et sa valeur est " + leMotEnLettre.get(i).valeur +"\n");
+                    }
+                    String bonus = res.bonus;
+                    this.score += this.CompterPointCoup(leMotEnLettre, leChoix.dx, leChoix.dy, leChoix.x, leChoix.y, lePlateau, bonus);
+                    lePlateau = this.PlacerMot(leMotEnLettre, leChoix.dx, leChoix.dy, leChoix.x, leChoix.y, lePlateau);
+                    try 
+                    {
+                        ChangerLettres(leChoix.mot, leSac);
+                    } 
+                    catch (LettreNonPresente e) 
+                    {
+                        System.out.println("La lettre n'est pas présente dans le chevalet \n");
+                    }
+                }
+            }
+            if (leChoix.choix == 2)
+            {
+
+                try 
+                {
+                    ChangerLettres(leChoix.mot, leSac);
+                } 
+                catch (LettreNonPresente e) 
+                {
+                    System.out.println(e);
+                    coupValide=false;
+                }
+            }
+        }    
+        return lePlateau;
+    }
+
+
+
+    public Plateau PlacerMot(LinkedList<Lettre> leMot, int dx, int dy, int x, int y, Plateau lePlateau)
+    {
+        int i;
+        for (i=0; i<leMot.size(); i++)
+        {
+            lePlateau.lePlateau[x-1+i*dx][y-1 + i*dy].symbole = leMot.get(i).symbole;
+            lePlateau.lePlateau[x-1+i*dx][y-1 + i*dy].valeur = leMot.get(i).valeur;
+            System.out.println("Pose numéro " + i + " = " + leMot.get(i).symbole + "\n");
+        }
+        return lePlateau;
+    }
+
+    public int CompterPointCoup(LinkedList<Lettre> leMot, int dx, int dy, int x, int y, Plateau lePlateau, String bonus)
+    {
+        int scoreFait = 0, j, i;
+        for (i=0; i<leMot.size(); i++)
+        {
+            scoreFait += leMot.get(i).valeur;
+
+            j=1;
+            while((lePlateau.lePlateau[x+i*dx+j][y+i*dy].symbole != '_') && (x+i*dx+j<14))
+            {
+                scoreFait += lePlateau.lePlateau[x+i*dx+j][y+i*dy].valeur;
+                j++;
+            }
+            j=1;
+            while((lePlateau.lePlateau[x+i*dx-j][y+i*dy].symbole != '_') && (x+i*dx-j>0))
+            {
+                scoreFait += lePlateau.lePlateau[x+i*dx-j][y+i*dy].valeur;
+                j++;
+            }
+            j=1;
+            while((lePlateau.lePlateau[x+i*dx][y+i*dy+j].symbole != '_') && (y+i*dy+j<14))
+            {
+                scoreFait += lePlateau.lePlateau[x+i*dx][y+i*dy+j].valeur;
+                j++;
+            }
+            j=1;
+            while((lePlateau.lePlateau[x+i*dx][y+i*dy-j].symbole != '_') && (y+i*dy-j>0))
+            {
+                scoreFait += lePlateau.lePlateau[x+i*dx][y+i*dy-j].valeur;
+                j++;
+            }
+        }
+        return scoreFait;
+    }
+
+
+    public Serarien VerifMotPlace(LinkedList<Lettre> leMot, int dx, int dy, int x, int y, Plateau lePlateau)
+    {
+        boolean depassePas = true, connecte = false;
+        Serarien res = new Serarien();
+        int i, j=1;
+        for (i=0; i<leMot.size(); i++)
+        {
+            if (lePlateau.lePlateau[x+i*dx][y+i*dy].symbole != '_')
+            {
+                leMot.add(i, lePlateau.lePlateau[x+i*dx][y+i*dy]);
+            }
+            if ((lePlateau.lePlateau[x+i*dx+1][y+i*dy].symbole != '_') || (lePlateau.lePlateau[x+i*dx-1][y+i*dy].symbole != '_') || (lePlateau.lePlateau[x+i*dx][y+i*dy+1].symbole != '_') || (lePlateau.lePlateau[x+i*dx][y+i*dy-1].symbole != '_'))
+            {
+                connecte = true;
+            }
+        }
+        if ((x + leMot.size()*dx < 0) || (x+leMot.size()*dx > 14) || (y+leMot.size()*dy < 0) || (y+leMot.size()*dy>14))
+        {
+            depassePas = false;
+        }
+        res.valide = (depassePas && connecte);
+        res.nouveauMot = leMot;
+        for (i=0; i<leMot.size(); i++)
+        {
+            res.bonus = res.bonus + lePlateau.lePlateau[x+i*dx][y+i*dy].symbole;
+        }
+        return res;
+    }
+
+    //pas besoin au final
+    public String insererChar(String leMot, int ind, char leChar)
+    {
+        String res="";
+        int i;
+
+        for (i=0; i<ind-1; i++ )
+        {
+            res = res + leMot.charAt(i);
+        }
+        res = res + leChar;
+        for (i=ind-1; i<leMot.length(); i++)
+        {
+            res = res + leMot.charAt(i);
+        }
+        return res;
+    }
+    
 
     // réécriture de la méthode toString pour afficher les lettres et leurs valeures
     public String toString()
@@ -288,6 +621,7 @@ public class Chevalet
         {
             str = str + " " + this.mesLettres[i].toString() + "\n";
         }
+        str = str + "\nSon score est : " + this.score + "\n\n";
         return str;
     }
 
@@ -305,4 +639,5 @@ public class Chevalet
         }
         System.out.println();
     }
+    
 }

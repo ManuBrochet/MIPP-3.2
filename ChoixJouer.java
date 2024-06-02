@@ -4,7 +4,8 @@ public class ChoixJouer
     String mot;
     int x;
     int y;
-    char direction;
+    int dx;
+    int dy;
 
     // constructeur vide
     public ChoixJouer()
@@ -13,6 +14,7 @@ public class ChoixJouer
         this.mot = "";
         this.x = 0;
         this.y = 0;
-        this.direction = '_';
+        this.dx = 0;
+        this.dy = 0;
     }
 }

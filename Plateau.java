@@ -17,7 +17,7 @@ public class Plateau
         }
     }
 
-    public void afficher_plateau()
+     public void afficher_plateau()
     {
         int i;
         int j;
@@ -30,7 +30,7 @@ public class Plateau
             System.out.print(i+ "| ");
             for (j=0; j<15; j++)
             {
-                System.out.print(this.lePlateau[i-1][j].symbole + " | ");
+                System.out.print(this.lePlateau[j][i-1].symbole + " | ");
             }
             System.out.println();
             System.out.println("_______________________________________________________________");
