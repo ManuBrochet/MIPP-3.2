@@ -220,7 +220,7 @@ public class Chevalet
             {
                 res = true;
                 lesLettres.add(this.mesLettres[i]);
-                this.mesLettres[i].symbole = '_';
+                //this.mesLettres[i].symbole = '_';
                 break;
             }
         }
@@ -231,7 +231,7 @@ public class Chevalet
 
 
     // change les lettres données du chevalet
-    public void ChangerLettres(String LettresAChanger, Sac leSac) throws LettreNonPresente
+    public boolean ChangerLettres(String LettresAChanger, Sac leSac) throws LettreNonPresente
     {
         int i,j;
         boolean resteLettres;
@@ -256,6 +256,7 @@ public class Chevalet
             }
         }
         resteLettres = piocherLettre(leSac);
+        return resteLettres;
     }
 
 
@@ -308,9 +309,9 @@ public class Chevalet
             entree.nextLine();
             leChoix.mot = entree.nextLine();
             System.out.println("Donner la coordonnées x");
-            leChoix.x = entree.nextInt();
+            leChoix.x = entree.nextInt() -1;
             System.out.println("Donner la coordonnées y");
-            leChoix.y = entree.nextInt();
+            leChoix.y = entree.nextInt() -1;
             entree.nextLine();
             while((direction!='N') && (direction!='S') && (direction!='E') && (direction!='W'))
             {
@@ -375,7 +376,6 @@ public class Chevalet
                         System.out.print("Une de ces lettres n'est pas présente dans votre chevalet. \n ");
                         break;
                     }
-                    System.out.println("La dernière lettre " +  leMotEnLettre.getLast().symbole + "\n\n");
                 }
                 if (!PremierCoupValide(leMotEnLettre, leChoix.dx, leChoix.dy, leChoix.x, leChoix.y, lePlateau))
                 {
@@ -429,7 +429,7 @@ public class Chevalet
     public boolean PremierCoupValide(LinkedList<Lettre> leMot, int dx, int dy, int x, int y, Plateau lePlateau)
     {
         boolean res = false;
-        if (( (x == 8) && (dy == 1) && (y+leMot.size() >= 8) && (y<=8) ) || (((y == 8) && (dx == 1)) && (x+leMot.size() >= 8)  &&  (x<=8)))
+        if (( (x == 7) && (dy == 1) && (y+leMot.size() >= 7) && (y<=7) ) || (((y == 7) && (dx == 1)) && (x+leMot.size() >= 7)  &&  (x<=7)))
         {
             res = true;
         }
@@ -465,14 +465,16 @@ public class Chevalet
                         System.out.print("Une de ces lettres n'est pas présente dans votre chevalet. \n ");
                         break;
                     }
-                    System.out.println("La dernière lettre " +  leMotEnLettre.getLast().symbole + "\n\n");
                 }
-                if (!this.VerifMotPlace(leMotEnLettre, leChoix.dx, leChoix.dy, leChoix.x, leChoix.y, lePlateau).valide)
+                
+                LinkedList<Lettre> copyMotEnLettre = (LinkedList) leMotEnLettre.clone();
+                if (!this.VerifMotPlace(copyMotEnLettre, leChoix.dx, leChoix.dy, leChoix.x, leChoix.y, lePlateau).valide)
 
                 {
                     System.out.println("Votre mot ne peut pas être posé ici, veuillez en entrer un nouveau. \n ");
                     bienPlace = false;
                 }
+                copyMotEnLettre.clear();
 
                 coupValide = ((bienPlace) && (lettreDansChevalet));
 
@@ -521,9 +523,8 @@ public class Chevalet
         int i;
         for (i=0; i<leMot.size(); i++)
         {
-            lePlateau.lePlateau[x-1+i*dx][y-1 + i*dy].symbole = leMot.get(i).symbole;
-            lePlateau.lePlateau[x-1+i*dx][y-1 + i*dy].valeur = leMot.get(i).valeur;
-            System.out.println("Pose numéro " + i + " = " + leMot.get(i).symbole + "\n");
+            lePlateau.lePlateau[x+i*dx][y + i*dy].symbole = leMot.get(i).symbole;
+            lePlateau.lePlateau[x+i*dx][y + i*dy].valeur = leMot.get(i).valeur;
         }
         return lePlateau;
     }
@@ -568,12 +569,17 @@ public class Chevalet
     {
         boolean depassePas = true, connecte = false;
         Serarien res = new Serarien();
-        int i, j=1;
-        for (i=0; i<leMot.size(); i++)
+        int i, j=1, tempSize = leMot.size();
+        int tempValeur;
+        char tempSymbole;
+        for (i=0; i<tempSize; i++)
         {
             if (lePlateau.lePlateau[x+i*dx][y+i*dy].symbole != '_')
             {
-                leMot.add(i, lePlateau.lePlateau[x+i*dx][y+i*dy]);
+                tempSymbole = lePlateau.lePlateau[x+i*dx][y+i*dy].symbole;
+                tempValeur = lePlateau.lePlateau[x+i*dx][y+i*dy].valeur;
+                leMot.add(i, new Lettre(tempSymbole, tempValeur));
+                lePlateau.lePlateau[x+i*dx][y+i*dy].valeur = 0;
             }
             if ((lePlateau.lePlateau[x+i*dx+1][y+i*dy].symbole != '_') || (lePlateau.lePlateau[x+i*dx-1][y+i*dy].symbole != '_') || (lePlateau.lePlateau[x+i*dx][y+i*dy+1].symbole != '_') || (lePlateau.lePlateau[x+i*dx][y+i*dy-1].symbole != '_'))
             {
