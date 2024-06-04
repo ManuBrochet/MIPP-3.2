@@ -134,4 +134,36 @@ public class Sac
         }
         return str;
     }
+
+    //affichage compact du sac pour les tests, en insérant un décalage aux lettres qui valent plus de 10
+    //marche avec un sac rempli dans l'ordre
+    public void afficher_sac()
+    {
+        System.out.println();
+        System.out.println("Lettres du sac : ");
+        for (int i=0; i<47; i++)
+        {
+            System.out.print(this.lettres_restantes.get(i).symbole);
+        }
+        System.out.print(" ");
+        for (int i=47; i<nb_lettres_restantes - 6; i++)
+        {
+            System.out.print(this.lettres_restantes.get(i).symbole);
+        }
+        for (int i=nb_lettres_restantes-6; i<nb_lettres_restantes-2; i++)
+        {
+            System.out.print(this.lettres_restantes.get(i).symbole + " ");
+        }
+        for (int i=nb_lettres_restantes-2; i<nb_lettres_restantes; i++)
+        {
+            System.out.print(this.lettres_restantes.get(i).symbole );
+        }
+
+        System.out.println();
+        for (int i=0; i<nb_lettres_restantes; i++)
+        {
+            System.out.print(this.lettres_restantes.get(i).valeur);
+        }
+        System.out.println();
+    }
 }

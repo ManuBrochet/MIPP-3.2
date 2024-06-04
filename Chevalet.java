@@ -98,6 +98,7 @@ public class Chevalet
         {
             if (!LettrePresente(LettresAChanger.charAt(i), new LinkedList<Lettre>()))
             {
+                resteLettres = piocherLettre(leSac);        //remplis les cases vides avant de sorir à cause de l'exception
                 throw new LettreNonPresente("La lettre " + LettresAChanger.charAt(i) + " n'est pas dans votre chevalet.");
             }
             else
@@ -500,6 +501,7 @@ public class Chevalet
     // affiche le chevalet pour que le joueur puisse jouer
     public void afficher_chevalet()
     {
+        System.out.println();
         System.out.println("Joueur : "+ this.nom);
         for (int i=0; i<7; i++)
         {
@@ -511,7 +513,7 @@ public class Chevalet
             System.out.print(this.mesLettres[i].valeur + " ");
         }
         System.out.println();
-        System.out.println("Votre score est de : " + this.score +  "\n\n");
+        System.out.println("Votre score est de : " + this.score +  "\n");
 
     }
 }
