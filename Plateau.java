@@ -1,9 +1,9 @@
 public class Plateau
 {
+    // attribut
     public Lettre[][] lePlateau = new Lettre[15][15];
 
     // constructeur, en initialisant le tableau avec des cases vides représentées par des _
-
     public Plateau()
     {
         int i;
@@ -17,7 +17,9 @@ public class Plateau
         }
     }
 
-     public void afficher_plateau()
+
+    // affiche le plateau en joli
+    public void afficher_plateau()
     {
         int i;
         int j;

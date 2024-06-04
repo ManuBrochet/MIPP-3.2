@@ -2,6 +2,8 @@ import java.util.LinkedList;
 
 public class Serarien
 {
+
+    // classe-structure
     boolean valide;
     LinkedList<Lettre> nouveauMot;
     String bonus;

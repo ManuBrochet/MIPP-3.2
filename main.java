@@ -13,6 +13,7 @@ public class main
         LinkedList<Chevalet> ListeJoueurs = new LinkedList<Chevalet>();
         Scanner entree = new Scanner(System.in);
         Chevalet tempJoueur;
+        //  on initialise la partie
         System.out.println("Combien de joueurs voulez-vous dans la partie ?");
         nbJoueurs = entree.nextInt();
         entree.nextLine();
@@ -23,11 +24,12 @@ public class main
             tempNom = entree.nextLine();
             ListeJoueurs.add(new Chevalet(tempNom));
         }
-
+        // on crée le plateau et le sac
         Plateau lePlateau = new Plateau();
         Sac leSac = new Sac();
         boolean finPartie = false;
 
+        // tous les joueurs piochent
         for (i=0; i<nbJoueurs; i++)
         {
             ListeJoueurs.get(i).piocherLettre(leSac);
@@ -68,6 +70,7 @@ public class main
 
             if (leSac.nb_lettres_restantes == 0) finPartie = true;
 
+            // si le dernier joueur vient de jouer, on revient au premier joueur
             if (joueurActuel == nbJoueurs -1)
             {
                 joueurActuel = 0;
@@ -75,6 +78,11 @@ public class main
             else joueurActuel++;
         }
         
+        // fin de partie
+        for (i=0; i<nbJoueurs; i++)
+        {
+            System.out.println("Le score de " + ListeJoueurs.get(i).nom + "est" +  ListeJoueurs.get(i).score + "\n");
+        }
         System.out.println("\n\n\nMerci d'avoir joué !\n\n\n");
     }
 }
