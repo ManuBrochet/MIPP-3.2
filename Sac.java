@@ -10,7 +10,7 @@ public class Sac
     {
         LinkedList<Lettre> lettres_restantes_temp = new LinkedList<Lettre>();
         int i;
-        for (i=0; i<9; i++)
+        for (i=0; i<9; i++)                                                      //il y a 9 "a"
         {
             lettres_restantes_temp.add(new Lettre('a', 1));
         }
@@ -127,7 +127,7 @@ public class Sac
     public String toString()
     {
         int i;
-        String str = "Les lettres du sac sont : ";
+        String str = "Les lettres du sac sont : \n";
         for (i=0; i<this.nb_lettres_restantes; i++)
         {
             str = str + " " + this.lettres_restantes.get(i).toString() + "\n";

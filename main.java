@@ -8,14 +8,17 @@ public class main
 
     public static void main(String[] args)
     {
-        int nbJoueurs, i;
+        int nbJoueurs=0, i;
         String tempNom;
         LinkedList<Chevalet> ListeJoueurs = new LinkedList<Chevalet>();
         Scanner entree = new Scanner(System.in);
         Chevalet tempJoueur;
         //  on initialise la partie
-        System.out.println("Combien de joueurs voulez-vous dans la partie ?");
-        nbJoueurs = entree.nextInt();
+        while(!(nbJoueurs > 0))
+        {
+            System.out.println("Combien de joueurs voulez-vous dans la partie ?");
+            nbJoueurs = entree.nextInt();
+        }
         entree.nextLine();
         for (i=0; i<nbJoueurs; i++)
         {
@@ -42,18 +45,19 @@ public class main
 
         tempJoueur = ListeJoueurs.get(0);
 
-        System.out.println("\n\nC'est à " + tempJoueur.nom + " de jouer \n\n");
+        System.out.println("\n\nC'est à " + tempJoueur.nom + " de jouer \n");
 
         lePlateau = tempJoueur.JouerPremierCoup(lePlateau, leSac);
 
         ListeJoueurs.set(0,tempJoueur);
 
-        System.out.println(ListeJoueurs.get(0).toString());
+        System.out.println("\nA présent : ");
+        ListeJoueurs.get(0).afficher_chevalet();
 
         int joueurActuel = 1;
 
 
-        // les joueur jouent jusqu'à ce qu'il n'y est plus de lettres dans le sac
+        // les joueur jouent jusqu'à ce qu'il n'y ait plus de lettres dans le sac
         while (!finPartie)
         {
             tempJoueur = ListeJoueurs.get(joueurActuel);
@@ -66,7 +70,8 @@ public class main
 
             ListeJoueurs.set(joueurActuel, tempJoueur);
 
-            System.out.println(ListeJoueurs.get(joueurActuel).toString());
+            System.out.println("\nA présent : ");
+            ListeJoueurs.get(joueurActuel).afficher_chevalet();
 
             if (leSac.nb_lettres_restantes == 0) finPartie = true;
 
